@@ -1,0 +1,21 @@
+{
+  "domain": "miraie",
+  "name": "MirAIe",
+  "config_flow": true,
+  "documentation": "https://www.home-assistant.io/integrations/miraie",
+  "requirements": [
+    "miraie-ac==0.2.10",
+    "aiohttp==3.8.1",
+    "asyncio==3.4.3",
+    "paho-mqtt==1.6.1",
+    "certifi==2022.9.24"
+  ],
+  "ssdp": [],
+  "zeroconf": [],
+  "homekit": {},
+  "dependencies": [],
+  "codeowners": [
+    "@Kir4Kun"
+  ],
+  "iot_class": "cloud_push"
+}
