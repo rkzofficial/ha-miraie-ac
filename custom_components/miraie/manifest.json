@@ -4,11 +4,11 @@
   "config_flow": true,
   "documentation": "https://www.home-assistant.io/integrations/miraie",
   "requirements": [
-    "miraie-ac==0.2.13",
+    "miraie-ac==0.2.14",
     "aiohttp==3.8.4",
     "asyncio==3.4.3",
-    "paho-mqtt==1.6.1",
-    "certifi==2022.9.24"
+    "aiomqtt==1.0.0",
+    "certifi==2023.5.7"
   ],
   "ssdp": [],
   "zeroconf": [],
