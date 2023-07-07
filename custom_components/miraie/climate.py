@@ -161,38 +161,38 @@ class MirAIeClimate(ClimateEntity):
 
         return SWING_ON
 
-    def set_temperature(self, **kwargs: Any) -> None:
-        self.device.set_temperature(kwargs["temperature"])
+    async def async_set_temperature(self, **kwargs: Any) -> None:
+        await self.device.set_temperature(kwargs["temperature"])
 
-    def set_hvac_mode(self, hvac_mode: HVACMode) -> None:
+    async def async_set_hvac_mode(self, hvac_mode: HVACMode) -> None:
         if hvac_mode == HVACMode.OFF:
-            self.device.turn_off()
+            await self.device.turn_off()
         else:
 
             if self.device.status.power_mode.value == "off":
-                self.device.turn_on()
+                await self.device.turn_on()
 
             if hvac_mode == HVACMode.FAN_ONLY:
-                self.device.set_hvac_mode(MHVACMode("fan"))
+                await self.device.set_hvac_mode(MHVACMode("fan"))
             else:
-                self.device.set_hvac_mode(MHVACMode(hvac_mode.value))
+                await self.device.set_hvac_mode(MHVACMode(hvac_mode.value))
 
-    def set_fan_mode(self, fan_mode: str) -> None:
+    async def async_set_fan_mode(self, fan_mode: str) -> None:
 
         if fan_mode == FAN_OFF:
-            self.device.set_fan_mode(FanMode("quiet"))
+            await self.device.set_fan_mode(FanMode("quiet"))
         else:
-            self.device.set_fan_mode(FanMode(fan_mode))
+            await self.device.set_fan_mode(FanMode(fan_mode))
 
-    def set_swing_mode(self, swing_mode: str) -> None:
+    async def async_set_swing_mode(self, swing_mode: str) -> None:
 
         if swing_mode == SWING_ON:
-            self.device.set_swing_mode(SwingMode(0))
+            await self.device.set_swing_mode(SwingMode(0))
         else:
-            self.device.set_swing_mode(SwingMode(1))
+            await self.device.set_swing_mode(SwingMode(1))
 
-    def set_preset_mode(self, preset_mode: str) -> None:
-        self.device.set_preset_mode(PresetMode(preset_mode))
+    async def async_set_preset_mode(self, preset_mode: str) -> None:
+        await self.device.set_preset_mode(PresetMode(preset_mode))
 
     async def async_added_to_hass(self) -> None:
         """Run when this Entity has been added to HA."""

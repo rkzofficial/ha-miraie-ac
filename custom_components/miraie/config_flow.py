@@ -18,7 +18,7 @@ _LOGGER = logging.getLogger(__name__)
 
 STEP_USER_DATA_SCHEMA = vol.Schema(
     {
-        vol.Required("mobile"): str,
+        vol.Required("username"): str,
         vol.Required("password"): str,
     }
 )
@@ -32,7 +32,7 @@ async def validate_input(hass: HomeAssistant, data: dict[str, Any]) -> dict[str,
     async with MirAIeHub() as hub:
         # pylint: disable=protected-access
         try:
-            await hub._authenticate(data["mobile"], data["password"])
+            await hub._authenticate(data["username"], data["password"])
         except Exception as exc:
             raise InvalidAuth from exc
 

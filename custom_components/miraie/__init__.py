@@ -20,7 +20,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
     async with MirAIeHub() as hub:
         broker = MirAIeBroker()
-        await hub.init(entry.data["mobile"], entry.data["password"], broker)
+        await hub.init(entry.data["username"], entry.data["password"], broker)
         hass.data[DOMAIN][entry.entry_id] = hub
 
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)

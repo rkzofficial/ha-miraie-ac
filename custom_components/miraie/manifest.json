@@ -4,7 +4,7 @@
   "config_flow": true,
   "documentation": "https://www.home-assistant.io/integrations/miraie",
   "requirements": [
-    "miraie-ac==0.2.14",
+    "miraie-ac==0.2.15",
     "aiohttp==3.8.4",
     "asyncio==3.4.3",
     "aiomqtt==1.0.0",
