@@ -33,14 +33,15 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from . import DOMAIN
-# Possible swing state
-SWING_ON = "0"
-SWING_ONE = "1"
-SWING_TWO = "2"
-SWING_THREE = "3"
-SWING_FOUR = "4"
-SWING_FIVE = "5"
+from .const import (
+    DOMAIN,
+    SWING_ON,
+    SWING_ONE,
+    SWING_TWO,
+    SWING_THREE,
+    SWING_FOUR,
+    SWING_FIVE,
+)
 
 async def async_setup_entry(
     hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback
