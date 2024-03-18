@@ -28,7 +28,7 @@ from homeassistant.components.climate import (
     PRECISION_WHOLE,
 )
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import TEMP_CELSIUS
+from homeassistant.const import UnitOfTemperature
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
@@ -85,7 +85,7 @@ class MirAIeClimate(ClimateEntity):
             | ClimateEntityFeature.PRESET_MODE
             | ClimateEntityFeature.SWING_MODE
         )
-        self._attr_temperature_unit = TEMP_CELSIUS
+        self._attr_temperature_unit = UnitOfTemperature.CELSIUS
         self._attr_precision = PRECISION_WHOLE
         self._attr_unique_id = device.id
         self.device = device
