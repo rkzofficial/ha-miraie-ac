@@ -78,6 +78,7 @@ class MirAIeClimate(ClimateEntity):
         self._attr_swing_modes = [SWING_ON, SWING_ONE, SWING_TWO, SWING_THREE, SWING_FOUR, SWING_FIVE]
         self._attr_max_temp = 30.0
         self._attr_min_temp = 16.0
+        self._attr_target_temperature_step = 1
         self._attr_supported_features = (
             ClimateEntityFeature.TARGET_TEMPERATURE
             | ClimateEntityFeature.FAN_MODE
