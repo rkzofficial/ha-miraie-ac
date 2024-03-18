@@ -5,7 +5,7 @@
   "documentation": "https://www.home-assistant.io/integrations/miraie",
   "requirements": [
     "miraie-ac==0.2.16",
-    "aiohttp==3.8.4",
+    "aiohttp==3.9.3",
     "asyncio==3.4.3",
     "aiomqtt==1.0.0",
     "certifi==2023.5.7"
