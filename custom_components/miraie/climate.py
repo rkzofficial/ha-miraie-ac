@@ -25,18 +25,23 @@ from homeassistant.components.climate import (
     FAN_MEDIUM,
     FAN_HIGH,
     FAN_OFF,
-    SWING_ON,
-    SWING_OFF,
     PRECISION_WHOLE,
 )
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import TEMP_CELSIUS
+from homeassistant.const import UnitOfTemperature
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from . import DOMAIN
-
+from .const import (
+    DOMAIN,
+    SWING_ON,
+    SWING_ONE,
+    SWING_TWO,
+    SWING_THREE,
+    SWING_FOUR,
+    SWING_FIVE,
+)
 
 async def async_setup_entry(
     hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback
@@ -71,16 +76,17 @@ class MirAIeClimate(ClimateEntity):
             FAN_HIGH,
             FAN_OFF,
         ]
-        self._attr_swing_modes = [SWING_ON, SWING_OFF]
+        self._attr_swing_modes = [SWING_ON, SWING_ONE, SWING_TWO, SWING_THREE, SWING_FOUR, SWING_FIVE]
         self._attr_max_temp = 30.0
         self._attr_min_temp = 16.0
+        self._attr_target_temperature_step = 1
         self._attr_supported_features = (
             ClimateEntityFeature.TARGET_TEMPERATURE
             | ClimateEntityFeature.FAN_MODE
             | ClimateEntityFeature.PRESET_MODE
             | ClimateEntityFeature.SWING_MODE
         )
-        self._attr_temperature_unit = TEMP_CELSIUS
+        self._attr_temperature_unit = UnitOfTemperature.CELSIUS
         self._attr_precision = PRECISION_WHOLE
         self._attr_unique_id = device.id
         self.device = device
@@ -157,7 +163,15 @@ class MirAIeClimate(ClimateEntity):
         mode = self.device.status.swing_mode.value
 
         if mode == 1:
-            return SWING_OFF
+            return SWING_ONE
+        elif mode == 2:
+            return SWING_TWO
+        elif mode == 3:
+            return SWING_THREE
+        elif mode == 4:
+            return SWING_FOUR
+        elif mode == 5:
+            return SWING_FIVE
 
         return SWING_ON
 
@@ -186,10 +200,18 @@ class MirAIeClimate(ClimateEntity):
 
     async def async_set_swing_mode(self, swing_mode: str) -> None:
 
-        if swing_mode == SWING_ON:
-            await self.device.set_swing_mode(SwingMode(0))
-        else:
+        if swing_mode == SWING_ONE:
             await self.device.set_swing_mode(SwingMode(1))
+        elif swing_mode == SWING_TWO:
+            await self.device.set_swing_mode(SwingMode(2))
+        elif swing_mode == SWING_THREE:
+            await self.device.set_swing_mode(SwingMode(3))
+        elif swing_mode == SWING_FOUR:
+            await self.device.set_swing_mode(SwingMode(4))
+        elif swing_mode == SWING_FIVE:
+            await self.device.set_swing_mode(SwingMode(5))
+        else:
+            await self.device.set_swing_mode(SwingMode(0))
 
     async def async_set_preset_mode(self, preset_mode: str) -> None:
         await self.device.set_preset_mode(PresetMode(preset_mode))
