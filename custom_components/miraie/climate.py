@@ -80,11 +80,14 @@ class MirAIeClimate(ClimateEntity):
         self._attr_max_temp = 30.0
         self._attr_min_temp = 16.0
         self._attr_target_temperature_step = 1
+        self._enable_turn_on_off_backwards_compatibility = False
         self._attr_supported_features = (
             ClimateEntityFeature.TARGET_TEMPERATURE
             | ClimateEntityFeature.FAN_MODE
             | ClimateEntityFeature.PRESET_MODE
             | ClimateEntityFeature.SWING_MODE
+            | ClimateEntityFeature.TURN_OFF
+            | ClimateEntityFeature.TURN_ON
         )
         self._attr_temperature_unit = UnitOfTemperature.CELSIUS
         self._attr_precision = PRECISION_WHOLE
@@ -174,6 +177,12 @@ class MirAIeClimate(ClimateEntity):
             return SWING_FIVE
 
         return SWING_ON
+    
+    async def async_turn_off(self) -> None:
+        await self.async_set_hvac_mode(HVACMode.OFF)
+
+    async def async_turn_on(self) -> None:
+        await self.async_set_hvac_mode(HVACMode.COOL)
 
     async def async_set_temperature(self, **kwargs: Any) -> None:
         await self.device.set_temperature(kwargs["temperature"])
