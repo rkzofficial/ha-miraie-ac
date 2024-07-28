@@ -253,7 +253,7 @@ class MirAIeClimate(ClimateEntity):
             else:
                 await self.device.set_v_swing_mode(SwingMode(0))
                 
-        elif swing_mode.startswith('V'):
+        elif swing_mode.startswith('H'):
             if swing_mode == H1:
                 await self.device.set_h_swing_mode(SwingMode(1))
             elif swing_mode == H2:
