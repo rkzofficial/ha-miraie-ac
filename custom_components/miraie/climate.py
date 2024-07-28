@@ -9,6 +9,7 @@ from miraie_ac import (
     FanMode,
     SwingMode,
     PresetMode,
+    ConvertiMode,
 )
 
 from homeassistant.components.climate import (
@@ -47,6 +48,14 @@ from .const import (
     H3,
     H4,
     H5,
+    PRESET_CONVERTI_C110,
+    PRESET_CONVERTI_C100,
+    PRESET_CONVERTI_C90,
+    PRESET_CONVERTI_C80,
+    PRESET_CONVERTI_C70,
+    PRESET_CONVERTI_C55,
+    PRESET_CONVERTI_C40,
+    PRESET_CONVERTI_C0,
 )
 
 async def async_setup_entry(
@@ -73,7 +82,7 @@ class MirAIeClimate(ClimateEntity):
             HVACMode.DRY,
             HVACMode.FAN_ONLY,
         ]
-        self._attr_preset_modes = [PRESET_NONE, PRESET_ECO, PRESET_BOOST]
+        self._attr_preset_modes = [PRESET_NONE, PRESET_ECO, PRESET_BOOST, PRESET_CONVERTI_C110, PRESET_CONVERTI_C100, PRESET_CONVERTI_C90, PRESET_CONVERTI_C80, PRESET_CONVERTI_C70, PRESET_CONVERTI_C55, PRESET_CONVERTI_C40, PRESET_CONVERTI_C0]
         self._attr_fan_mode = FAN_OFF
         self._attr_fan_modes = [
             FAN_AUTO,
@@ -257,7 +266,11 @@ class MirAIeClimate(ClimateEntity):
                 await self.device.set_h_swing_mode(SwingMode(0))
 
     async def async_set_preset_mode(self, preset_mode: str) -> None:
-        await self.device.set_preset_mode(PresetMode(preset_mode))
+        if preset_mode.startswith("cv"):
+            preset_mode = preset_mode.split(" ")[1]
+            await self.device.set_converti_mode(ConvertiMode(preset_mode))
+        else:
+            await self.device.set_preset_mode(PresetMode(preset_mode))
 
     async def async_added_to_hass(self) -> None:
         """Run when this Entity has been added to HA."""
