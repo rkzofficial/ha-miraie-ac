@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 from typing import Any
-from miraie_ac import (
+from .miraie_ac import (
     Device as MirAIeDevice,
     MirAIeHub,
     HVACMode as MHVACMode,
@@ -163,7 +163,9 @@ class MirAIeClimate(ClimateEntity):
 
     @property
     def preset_mode(self) -> str | None:
-        return self.device.status.preset_mode.value
+        if self.device.status.converti_mode == ConvertiMode.OFF:
+            return self.device.status.preset_mode.value
+        return f"cv {self.device.status.converti_mode.value}"
 
     @property
     def fan_mode(self) -> str | None:
@@ -204,7 +206,7 @@ class MirAIeClimate(ClimateEntity):
         elif mode == 5:
             return H5
 
-        return H0
+        return V0
     
     async def async_turn_off(self) -> None:
         await self.async_set_hvac_mode(HVACMode.OFF)
@@ -267,7 +269,7 @@ class MirAIeClimate(ClimateEntity):
 
     async def async_set_preset_mode(self, preset_mode: str) -> None:
         if preset_mode.startswith("cv"):
-            preset_mode = preset_mode.split(" ")[1]
+            preset_mode = int(preset_mode.split(" ")[1])
             await self.device.set_converti_mode(ConvertiMode(preset_mode))
         else:
             await self.device.set_preset_mode(PresetMode(preset_mode))
