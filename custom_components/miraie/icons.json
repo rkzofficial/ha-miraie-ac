@@ -6,17 +6,17 @@
           "swing_mode": {
             "state": {
               "v0": "mdi:swap-vertical",
-              "v1": "mdi:format-vertical-align-bottom",
-              "v2": "mdi:format-vertical-align-bottom",
+              "v1": "mdi:arrow-up",
+              "v2": "mdi:format-vertical-align-top",
               "v3": "mdi:format-vertical-align-center",
-              "v4": "mdi:format-vertical-align-top",
-              "v5": "mdi:format-vertical-align-top",
+              "v4": "mdi:format-vertical-align-bottom",
+              "v5": "mdi:format-vertical-align-arrow-down",
               "h0": "mdi:swap-horizontal",
-              "h1": "mdi:format-horizontal-align-left",
-              "h2": "mdi:format-horizontal-align-left",
-              "h3": "mdi:format-horizontal-align-center",
+              "h1": "mdi:format-horizontal-align-center",
+              "h2": "mdi:arrow-left-thin",
+              "h3": "mdi:format-horizontal-align-left",
               "h4": "mdi:format-horizontal-align-right",
-              "h5": "mdi:format-horizontal-align-right"
+              "h5": "mdi:arrow-right-thin"
             }
           },
           "preset_mode": {
