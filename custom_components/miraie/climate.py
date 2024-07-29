@@ -113,6 +113,11 @@ class MirAIeClimate(ClimateEntity):
     def name(self) -> str:
         """Return the display name of this light."""
         return self.device.friendly_name
+    
+    @property
+    def translation_key(self) -> str:
+        """Return the translation key."""
+        return DOMAIN
 
     @property
     def icon(self) -> str | None:

@@ -1,0 +1,39 @@
+{
+  "entity": {
+    "climate": {
+      "miraie": {
+        "state_attributes": {
+          "swing_mode": {
+            "state": {
+              "v0": "mdi:swap-vertical",
+              "v1": "mdi:format-vertical-align-bottom",
+              "v2": "mdi:format-vertical-align-bottom",
+              "v3": "mdi:format-vertical-align-center",
+              "v4": "mdi:format-vertical-align-top",
+              "v5": "mdi:format-vertical-align-top",
+              "h0": "mdi:swap-horizontal",
+              "h1": "mdi:format-horizontal-align-left",
+              "h2": "mdi:format-horizontal-align-left",
+              "h3": "mdi:format-horizontal-align-center",
+              "h4": "mdi:format-horizontal-align-right",
+              "h5": "mdi:format-horizontal-align-right"
+            }
+          },
+          "preset_mode": {
+            "state": {
+              "none": "mdi:air-conditioner",
+              "cv_110": "mdi:alpha-h-circle",
+              "cv_100": "mdi:alpha-f-circle",
+              "cv_90": "mdi:circle-slice-7",
+              "cv_80": "mdi:circle-slice-6",
+              "cv_70": "mdi:circle-slice-5",
+              "cv_55": "mdi:circle-slice-4",
+              "cv_40": "mdi:circle-slice-3",
+              "cv_0": "mdi:circle-outline"
+            }
+          }
+        }
+      }
+    }
+  }
+}
