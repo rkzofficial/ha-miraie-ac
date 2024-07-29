@@ -6,11 +6,11 @@
           "swing_mode": {
             "state": {
               "V0": "mdi:swap-vertical",
-              "V1": "mdi:arrow-up",
+              "V1": "mdi:arrow-up-thin",
               "V2": "mdi:format-vertical-align-top",
               "V3": "mdi:format-vertical-align-center",
               "V4": "mdi:format-vertical-align-bottom",
-              "V5": "mdi:format-vertical-align-arrow-down",
+              "V5": "mdi:arrow-down-thin",
               "H0": "mdi:swap-horizontal",
               "H1": "mdi:format-horizontal-align-center",
               "H2": "mdi:arrow-left-thin",
