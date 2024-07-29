@@ -14,8 +14,8 @@
               "H0": "mdi:swap-horizontal",
               "H1": "mdi:format-horizontal-align-center",
               "H2": "mdi:arrow-left-thin",
-              "H3": "mdi:format-horizontal-align-left",
-              "H4": "mdi:format-horizontal-align-right",
+              "H3": "mdi:arrow-expand-left",
+              "H4": "mdi:arrow-expand-right",
               "H5": "mdi:arrow-right-thin"
             }
           },
