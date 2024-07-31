@@ -4,7 +4,7 @@ from __future__ import annotations
 import logging
 from typing import Any
 
-from .miraie_ac import MirAIeHub
+from miraie_ac import MirAIeHub
 import voluptuous as vol
 
 from homeassistant import config_entries

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 from typing import Any
-from .miraie_ac import (
+from miraie_ac import (
     Device as MirAIeDevice,
     MirAIeHub,
     HVACMode as MHVACMode,
@@ -200,7 +200,10 @@ class MirAIeClimate(ClimateEntity):
         
         # In case the Vertial swing is set to auto, we can show horizontal swing
         mode = self.device.status.h_swing_mode.value
-        if mode == 1:
+        if mode == 0:
+            # Signifies that both horizontal and vertical swing are enabled.
+            return H0
+        elif mode == 1:
             return H1
         elif mode == 2:
             return H2
