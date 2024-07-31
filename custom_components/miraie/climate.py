@@ -9,6 +9,7 @@ from miraie_ac import (
     FanMode,
     SwingMode,
     PresetMode,
+    ConvertiMode,
 )
 
 from homeassistant.components.climate import (
@@ -35,12 +36,26 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from .const import (
     DOMAIN,
-    SWING_ON,
-    SWING_ONE,
-    SWING_TWO,
-    SWING_THREE,
-    SWING_FOUR,
-    SWING_FIVE,
+    V0,
+    V1,
+    V2,
+    V3,
+    V4,
+    V5,
+    H0,
+    H1,
+    H2,
+    H3,
+    H4,
+    H5,
+    PRESET_CONVERTI_C110,
+    PRESET_CONVERTI_C100,
+    PRESET_CONVERTI_C90,
+    PRESET_CONVERTI_C80,
+    PRESET_CONVERTI_C70,
+    PRESET_CONVERTI_C55,
+    PRESET_CONVERTI_C40,
+    PRESET_CONVERTI_C0,
 )
 
 async def async_setup_entry(
@@ -67,7 +82,7 @@ class MirAIeClimate(ClimateEntity):
             HVACMode.DRY,
             HVACMode.FAN_ONLY,
         ]
-        self._attr_preset_modes = [PRESET_NONE, PRESET_ECO, PRESET_BOOST]
+        self._attr_preset_modes = [PRESET_NONE, PRESET_ECO, PRESET_BOOST, PRESET_CONVERTI_C110, PRESET_CONVERTI_C100, PRESET_CONVERTI_C90, PRESET_CONVERTI_C80, PRESET_CONVERTI_C70, PRESET_CONVERTI_C55, PRESET_CONVERTI_C40, PRESET_CONVERTI_C0]
         self._attr_fan_mode = FAN_OFF
         self._attr_fan_modes = [
             FAN_AUTO,
@@ -76,7 +91,7 @@ class MirAIeClimate(ClimateEntity):
             FAN_HIGH,
             FAN_OFF,
         ]
-        self._attr_swing_modes = [SWING_ON, SWING_ONE, SWING_TWO, SWING_THREE, SWING_FOUR, SWING_FIVE]
+        self._attr_swing_modes = [V0, V1, V2, V3, V4, V5, H0, H1, H2, H3, H4, H5]
         self._attr_max_temp = 30.0
         self._attr_min_temp = 16.0
         self._attr_target_temperature_step = 1
@@ -98,6 +113,11 @@ class MirAIeClimate(ClimateEntity):
     def name(self) -> str:
         """Return the display name of this light."""
         return self.device.friendly_name
+    
+    @property
+    def translation_key(self) -> str:
+        """Return the translation key."""
+        return DOMAIN
 
     @property
     def icon(self) -> str | None:
@@ -148,7 +168,9 @@ class MirAIeClimate(ClimateEntity):
 
     @property
     def preset_mode(self) -> str | None:
-        return self.device.status.preset_mode.value
+        if self.device.status.converti_mode == ConvertiMode.OFF:
+            return self.device.status.preset_mode.value
+        return f"cv {self.device.status.converti_mode.value}"
 
     @property
     def fan_mode(self) -> str | None:
@@ -163,20 +185,36 @@ class MirAIeClimate(ClimateEntity):
     @property
     def swing_mode(self) -> str | None:
 
-        mode = self.device.status.swing_mode.value
+        mode = self.device.status.v_swing_mode.value
 
         if mode == 1:
-            return SWING_ONE
+            return V1
         elif mode == 2:
-            return SWING_TWO
+            return V2
         elif mode == 3:
-            return SWING_THREE
+            return V3
         elif mode == 4:
-            return SWING_FOUR
+            return V4
         elif mode == 5:
-            return SWING_FIVE
+            return V5
+        
+        # In case the Vertial swing is set to auto, we can show horizontal swing
+        mode = self.device.status.h_swing_mode.value
+        if mode == 0:
+            # Signifies that both horizontal and vertical swing are enabled.
+            return H0
+        elif mode == 1:
+            return H1
+        elif mode == 2:
+            return H2
+        elif mode == 3:
+            return H3
+        elif mode == 4:
+            return H4
+        elif mode == 5:
+            return H5
 
-        return SWING_ON
+        return V0
     
     async def async_turn_off(self) -> None:
         await self.async_set_hvac_mode(HVACMode.OFF)
@@ -209,21 +247,40 @@ class MirAIeClimate(ClimateEntity):
 
     async def async_set_swing_mode(self, swing_mode: str) -> None:
 
-        if swing_mode == SWING_ONE:
-            await self.device.set_swing_mode(SwingMode(1))
-        elif swing_mode == SWING_TWO:
-            await self.device.set_swing_mode(SwingMode(2))
-        elif swing_mode == SWING_THREE:
-            await self.device.set_swing_mode(SwingMode(3))
-        elif swing_mode == SWING_FOUR:
-            await self.device.set_swing_mode(SwingMode(4))
-        elif swing_mode == SWING_FIVE:
-            await self.device.set_swing_mode(SwingMode(5))
-        else:
-            await self.device.set_swing_mode(SwingMode(0))
+        if swing_mode.startswith('V'):
+            if swing_mode == V1:
+                await self.device.set_v_swing_mode(SwingMode(1))
+            elif swing_mode == V2:
+                await self.device.set_v_swing_mode(SwingMode(2))
+            elif swing_mode == V3:
+                await self.device.set_v_swing_mode(SwingMode(3))
+            elif swing_mode == V4:
+                await self.device.set_v_swing_mode(SwingMode(4))
+            elif swing_mode == V5:
+                await self.device.set_v_swing_mode(SwingMode(5))
+            else:
+                await self.device.set_v_swing_mode(SwingMode(0))
+                
+        elif swing_mode.startswith('H'):
+            if swing_mode == H1:
+                await self.device.set_h_swing_mode(SwingMode(1))
+            elif swing_mode == H2:
+                await self.device.set_h_swing_mode(SwingMode(2))
+            elif swing_mode == H3:
+                await self.device.set_h_swing_mode(SwingMode(3))
+            elif swing_mode == H4:
+                await self.device.set_h_swing_mode(SwingMode(4))
+            elif swing_mode == H5:
+                await self.device.set_h_swing_mode(SwingMode(5))
+            else:
+                await self.device.set_h_swing_mode(SwingMode(0))
 
     async def async_set_preset_mode(self, preset_mode: str) -> None:
-        await self.device.set_preset_mode(PresetMode(preset_mode))
+        if preset_mode.startswith("cv"):
+            preset_mode = int(preset_mode.split(" ")[1])
+            await self.device.set_converti_mode(ConvertiMode(preset_mode))
+        else:
+            await self.device.set_preset_mode(PresetMode(preset_mode))
 
     async def async_added_to_hass(self) -> None:
         """Run when this Entity has been added to HA."""
