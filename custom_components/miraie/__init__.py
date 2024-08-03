@@ -12,7 +12,6 @@ from .const import DOMAIN
 # For your initial PR, limit it to 1 platform.
 PLATFORMS: list[Platform] = [Platform.CLIMATE]
 
-
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up mirAIe from a config entry."""
 

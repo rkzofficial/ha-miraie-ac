@@ -58,6 +58,8 @@ from .const import (
     PRESET_CONVERTI_C0,
 )
 
+from .logger import LOGGER
+
 async def async_setup_entry(
     hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback
 ) -> None:
@@ -223,9 +225,15 @@ class MirAIeClimate(ClimateEntity):
         await self.async_set_hvac_mode(HVACMode.COOL)
 
     async def async_set_temperature(self, **kwargs: Any) -> None:
+        
+        LOGGER.debug(f"Set temperature to {kwargs["temperature"]}")
+        
         await self.device.set_temperature(kwargs["temperature"])
 
     async def async_set_hvac_mode(self, hvac_mode: HVACMode) -> None:
+        
+        LOGGER.debug(f"Set hvac mode to {hvac_mode}")
+        
         if hvac_mode == HVACMode.OFF:
             await self.device.turn_off()
         else:
@@ -239,14 +247,18 @@ class MirAIeClimate(ClimateEntity):
                 await self.device.set_hvac_mode(MHVACMode(hvac_mode.value))
 
     async def async_set_fan_mode(self, fan_mode: str) -> None:
-
+        
+        LOGGER.debug(f"Set fan mode to {fan_mode}")
+        
         if fan_mode == FAN_OFF:
             await self.device.set_fan_mode(FanMode("quiet"))
         else:
             await self.device.set_fan_mode(FanMode(fan_mode))
 
     async def async_set_swing_mode(self, swing_mode: str) -> None:
-
+        
+        LOGGER.debug(f"Set swing mode to {swing_mode}")
+        
         if swing_mode.startswith('V'):
             if swing_mode == V1:
                 await self.device.set_v_swing_mode(SwingMode(1))
@@ -276,6 +288,9 @@ class MirAIeClimate(ClimateEntity):
                 await self.device.set_h_swing_mode(SwingMode(0))
 
     async def async_set_preset_mode(self, preset_mode: str) -> None:
+        
+        LOGGER.debug(f"Set preset mode to {preset_mode}")
+        
         if preset_mode.startswith("cv"):
             preset_mode = int(preset_mode.split(" ")[1])
             await self.device.set_converti_mode(ConvertiMode(preset_mode))
@@ -284,10 +299,16 @@ class MirAIeClimate(ClimateEntity):
 
     async def async_added_to_hass(self) -> None:
         """Run when this Entity has been added to HA."""
+        
+        LOGGER.debug("Successfully added to HA")
+        
         # Sensors should also register callbacks to HA when their state changes
         self.device.register_callback(self.async_write_ha_state)
 
     async def async_will_remove_from_hass(self) -> None:
         """Entity being removed from hass."""
+        
+        LOGGER.debug("Successfully removed from HA")
+        
         # The opposite of async_added_to_hass. Remove any registered call backs here.
         self.device.remove_callback(self.async_write_ha_state)
