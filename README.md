@@ -71,3 +71,16 @@ You can take a look at the following table to understand the outcome.
 
 Here `Vx` is the vertical swing mode set before and x can be either of 1, 2, 3, 4, 5.
 Note: Even with `Vx` being displayed on the UI the AC would still be set to proper Horizontal swing mode so you can use your automation to control the horizontal swing mode but might not be able to watch for mode changes in horizontal mode.
+
+## Logs
+
+Logs can be enabled in Home Assistant as follows
+
+```
+logger:
+  ...
+  logs:
+    ...
+    custom_components.miraie: debug
+    ...
+```
