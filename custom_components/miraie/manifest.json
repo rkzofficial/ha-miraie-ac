@@ -13,7 +13,7 @@
   "homekit": {},
   "dependencies": [],
   "codeowners": [
-    "@deCodeit",
+    "@deCodeIt",
     "@rkzofficial"
   ],
   "iot_class": "cloud_push",
