@@ -173,7 +173,7 @@ class MirAIeClimate(ClimateEntity):
 
     @property
     def preset_mode(self) -> str | None:
-        if self.device.status.converti_mode == ConvertiMode.OFF:
+        if self.device.status.converti_mode in [ConvertiMode.OFF, ConvertiMode.NS]:
             return self.device.status.preset_mode.value
         return f"cv {self.device.status.converti_mode.value}"
 
