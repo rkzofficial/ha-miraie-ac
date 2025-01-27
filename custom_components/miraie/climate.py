@@ -96,7 +96,8 @@ class MirAIeClimate(ClimateEntity):
             FAN_HIGH,
             FAN_OFF,
         ]
-        self._attr_swing_modes = [V0, V1, V2, V3, V4, V5, H0, H1, H2, H3, H4, H5]
+        self._attr_swing_modes = [V0, V1, V2, V3, V4, V5]
+        self._attr_swing_horizontal_mode = [H0, H1, H2, H3, H4, H5]
         self._attr_max_temp = 30.0
         self._attr_min_temp = 16.0
         self._attr_target_temperature_step = 1
@@ -108,6 +109,7 @@ class MirAIeClimate(ClimateEntity):
             | ClimateEntityFeature.SWING_MODE
             | ClimateEntityFeature.TURN_OFF
             | ClimateEntityFeature.TURN_ON
+            | ClimateEntityFeature.SWING_HORIZONTAL_MODE
         )
         self._attr_temperature_unit = UnitOfTemperature.CELSIUS
         self._attr_precision = PRECISION_WHOLE
@@ -189,7 +191,6 @@ class MirAIeClimate(ClimateEntity):
 
     @property
     def swing_mode(self) -> str | None:
-
         mode = self.device.status.v_swing_mode.value
 
         if mode == 1:
@@ -202,13 +203,14 @@ class MirAIeClimate(ClimateEntity):
             return V4
         elif mode == 5:
             return V5
+        else:
+            return V0
         
-        # In case the Vertial swing is set to auto, we can show horizontal swing
+    @property
+    def swing_horizontal_mode(self) -> str | None:
         mode = self.device.status.h_swing_mode.value
-        if mode == 0:
-            # Signifies that both horizontal and vertical swing are enabled.
-            return H0
-        elif mode == 1:
+        
+        if mode == 1:
             return H1
         elif mode == 2:
             return H2
@@ -218,8 +220,8 @@ class MirAIeClimate(ClimateEntity):
             return H4
         elif mode == 5:
             return H5
-
-        return V0
+        else:
+            return H0
     
     async def async_turn_off(self) -> None:
         await self.async_set_hvac_mode(HVACMode.OFF)
