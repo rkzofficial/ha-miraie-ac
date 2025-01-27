@@ -261,36 +261,34 @@ class MirAIeClimate(ClimateEntity):
             await self.device.set_fan_mode(FanMode(fan_mode))
 
     async def async_set_swing_mode(self, swing_mode: str) -> None:
-        
-        LOGGER.debug(f"Set swing mode to {swing_mode}")
-        
-        if swing_mode.startswith('V'):
-            if swing_mode == V1:
-                await self.device.set_v_swing_mode(SwingMode(1))
-            elif swing_mode == V2:
-                await self.device.set_v_swing_mode(SwingMode(2))
-            elif swing_mode == V3:
-                await self.device.set_v_swing_mode(SwingMode(3))
-            elif swing_mode == V4:
-                await self.device.set_v_swing_mode(SwingMode(4))
-            elif swing_mode == V5:
-                await self.device.set_v_swing_mode(SwingMode(5))
-            else:
-                await self.device.set_v_swing_mode(SwingMode(0))
-                
-        elif swing_mode.startswith('H'):
-            if swing_mode == H1:
-                await self.device.set_h_swing_mode(SwingMode(1))
-            elif swing_mode == H2:
-                await self.device.set_h_swing_mode(SwingMode(2))
-            elif swing_mode == H3:
-                await self.device.set_h_swing_mode(SwingMode(3))
-            elif swing_mode == H4:
-                await self.device.set_h_swing_mode(SwingMode(4))
-            elif swing_mode == H5:
-                await self.device.set_h_swing_mode(SwingMode(5))
-            else:
-                await self.device.set_h_swing_mode(SwingMode(0))
+        LOGGER.debug(f"Set swing vertical mode to {swing_mode}")
+        if swing_mode == V1:
+            await self.device.set_v_swing_mode(SwingMode(1))
+        elif swing_mode == V2:
+            await self.device.set_v_swing_mode(SwingMode(2))
+        elif swing_mode == V3:
+            await self.device.set_v_swing_mode(SwingMode(3))
+        elif swing_mode == V4:
+            await self.device.set_v_swing_mode(SwingMode(4))
+        elif swing_mode == V5:
+            await self.device.set_v_swing_mode(SwingMode(5))
+        else:
+            await self.device.set_v_swing_mode(SwingMode(0))
+            
+    async def async_set_swing_horizontal_mode(self, swing_mode: str) -> None:
+        LOGGER.debug(f"Set swing horizontal mode to {swing_mode}")    
+        if swing_mode == H1:
+            await self.device.set_h_swing_mode(SwingMode(1))
+        elif swing_mode == H2:
+            await self.device.set_h_swing_mode(SwingMode(2))
+        elif swing_mode == H3:
+            await self.device.set_h_swing_mode(SwingMode(3))
+        elif swing_mode == H4:
+            await self.device.set_h_swing_mode(SwingMode(4))
+        elif swing_mode == H5:
+            await self.device.set_h_swing_mode(SwingMode(5))
+        else:
+            await self.device.set_h_swing_mode(SwingMode(0))
 
     async def async_set_preset_mode(self, preset_mode: str) -> None:
         
