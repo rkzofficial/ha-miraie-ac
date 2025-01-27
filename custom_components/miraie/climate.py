@@ -97,7 +97,7 @@ class MirAIeClimate(ClimateEntity):
             FAN_OFF,
         ]
         self._attr_swing_modes = [V0, V1, V2, V3, V4, V5]
-        self._attr_swing_horizontal_mode = [H0, H1, H2, H3, H4, H5]
+        self._attr_swing_horizontal_modes = [H0, H1, H2, H3, H4, H5]
         self._attr_max_temp = 30.0
         self._attr_min_temp = 16.0
         self._attr_target_temperature_step = 1
