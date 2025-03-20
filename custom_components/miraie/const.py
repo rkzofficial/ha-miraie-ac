@@ -18,6 +18,9 @@ V3 = "V3"
 V4 = "V4"
 V5 = "V5"
 
+# Preset for Clean
+PRESET_CLEAN = "clean"
+
 # Preset for Converti
 PRESET_CONVERTI_C110 = "cv 110"
 PRESET_CONVERTI_C100 = "cv 100"
