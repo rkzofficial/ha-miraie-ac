@@ -26,6 +26,7 @@
           "preset_mode": {
             "state": {
               "none": "mdi:air-conditioner",
+              "clean": "mdi:air-filter",
               "cv 110": "mdi:alpha-h-circle",
               "cv 100": "mdi:alpha-f-circle",
               "cv 90": "mdi:circle-slice-7",
