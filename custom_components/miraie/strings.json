@@ -18,17 +18,26 @@
       "already_configured": "[%key:common::config_flow::abort::already_configured_device%]"
     }
   },
-  "state": {
+  "entity": {
     "climate": {
-      "preset_mode.clean": "Clean",
-      "preset_mode.cv 110": "HC",
-      "preset_mode.cv 100": "FC",
-      "preset_mode.cv 90": "90%",
-      "preset_mode.cv 80": "80%",
-      "preset_mode.cv 70": "70%",
-      "preset_mode.cv 55": "55%",
-      "preset_mode.cv 40": "40%",
-      "preset_mode.cv 0": "Off"
+      "miraie": {
+        "state_attributes": {
+          "preset_mode": {
+            "state": {
+              "none": "None",
+              "clean": "Clean",
+              "cv 110": "HC",
+              "cv 100": "FC",
+              "cv 90": "90%",
+              "cv 80": "80%",
+              "cv 70": "70%",
+              "cv 55": "55%",
+              "cv 40": "40%",
+              "cv 0": "Off"
+            }
+          }
+        }
+      }
     }
   }
 }
