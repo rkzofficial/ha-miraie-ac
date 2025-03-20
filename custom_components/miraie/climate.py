@@ -79,6 +79,7 @@ class MirAIeClimate(ClimateEntity):
     def __init__(self, device: MirAIeDevice) -> None:
         
         self._attr_should_poll: bool = False
+        self._attr_has_entity_name: bool = True
 
         self._attr_hvac_modes = [
             HVACMode.AUTO,
