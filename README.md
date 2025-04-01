@@ -72,6 +72,8 @@ You can take a look at the following table to understand the outcome.
 Here `Vx` is the vertical swing mode set before and x can be either of 1, 2, 3, 4, 5.
 Note: Even with `Vx` being displayed on the UI the AC would still be set to proper Horizontal swing mode so you can use your automation to control the horizontal swing mode but might not be able to watch for mode changes in horizontal mode.
 
+NOTE: The primary functions of the integration (reading / writing the AC state) use ```cloud_push```, while the energy consumption sensor entities are updated using ```cloud_polling```.
+
 ## Logs
 
 Logs can be enabled in Home Assistant as follows
