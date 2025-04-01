@@ -54,27 +54,6 @@
 2. Submit the form.
 
 ## Caveats
-HomeAssistant does not provide separate functionality to horizontal and vertical swings so they have been clubbed together to function correctly but with reduced observation as follows:
-
-The Vertical states are preferred over horizontal states unless the vertical state is set to V0(auto).
-You can take a look at the following table to understand the outcome.
-| Mode set in UI | Mode set in AC | Mode displayed on UI when vertical swing is on auto mode | Mode displayed on UI when vertical swing is NOT on auto mode |
-|---|---|---|---|
-| V0 | V0 | V0 | V0 |
-| V1 | V1 | V1 | V1 |
-| V2 | V2 | V2 | V2 |
-| V3 | V3 | V3 | V3 |
-| V4 | V4 | V4 | V4 |
-| V5 | V5 | V5 | V5 |
-| H0 | H0 | H0 | Vx |
-| H1 | H1 | H1 | Vx |
-| H2 | H2 | H2 | Vx |
-| H3 | H3 | H3 | Vx |
-| H4 | H4 | H4 | Vx |
-| H5 | H5 | H5 | Vx |
-
-Here `Vx` is the vertical swing mode set before and x can be either of 1, 2, 3, 4, 5.
-Note: Even with `Vx` being displayed on the UI the AC would still be set to proper Horizontal swing mode so you can use your automation to control the horizontal swing mode but might not be able to watch for mode changes in horizontal mode.
 
 NOTE: The primary functions of the integration (reading / writing the AC state) use ```cloud_push```, while the energy consumption sensor entities are updated using ```cloud_polling```.
 
