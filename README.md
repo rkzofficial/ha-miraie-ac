@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/b430eac3-5971-4d6e-83e1-d216cddf8600">
+</p>
+
 
 # Home Assistant Integration for the Panasonic MirAIe Air Conditioner
 
