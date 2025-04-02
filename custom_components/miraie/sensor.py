@@ -8,6 +8,7 @@ from homeassistant.components.sensor import SensorDeviceClass, SensorEntity, Sen
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import UnitOfEnergy
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.event import async_track_time_interval
 
@@ -75,6 +76,19 @@ class MirAIeEnergySensor(SensorEntity, ABC):
         """Set the last reset time for the sensor entity."""
         raise NotImplementedError
 
+    @property
+    def device_info(self) -> DeviceInfo:
+        """Return the device info."""
+        return DeviceInfo(
+            identifiers={
+                # Serial numbers are unique identifiers within a specific domain
+                (DOMAIN, self.device.id)
+            },
+            name=self.device.friendly_name,
+            manufacturer=self.device.details.brand,
+            model=self.device.details.model_number,
+            sw_version=self.device.details.firmware_version,
+        )
 
 class MirAIeDailyEnergySensor(MirAIeEnergySensor):
     @property
