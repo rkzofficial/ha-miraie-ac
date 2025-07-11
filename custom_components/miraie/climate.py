@@ -26,10 +26,12 @@ from homeassistant.components.climate import (
     FAN_MEDIUM,
     FAN_HIGH,
     FAN_OFF,
-    PRECISION_WHOLE,
 )
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import UnitOfTemperature
+from homeassistant.const import (
+    UnitOfTemperature,
+    PRECISION_HALVES,
+)
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
@@ -102,7 +104,7 @@ class MirAIeClimate(ClimateEntity):
         self._attr_swing_horizontal_modes = [H0, H1, H2, H3, H4, H5]
         self._attr_max_temp = 30.0
         self._attr_min_temp = 16.0
-        self._attr_target_temperature_step = 1
+        self._attr_target_temperature_step = 0.5
         self._enable_turn_on_off_backwards_compatibility = False
         self._attr_supported_features = (
             ClimateEntityFeature.TARGET_TEMPERATURE
@@ -114,7 +116,7 @@ class MirAIeClimate(ClimateEntity):
             | ClimateEntityFeature.SWING_HORIZONTAL_MODE
         )
         self._attr_temperature_unit = UnitOfTemperature.CELSIUS
-        self._attr_precision = PRECISION_WHOLE
+        self._attr_precision = PRECISION_HALVES
         self._attr_unique_id = device.id
         self.device = device
 
