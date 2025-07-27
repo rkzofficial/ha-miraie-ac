@@ -5,7 +5,6 @@
   "documentation": "https://www.home-assistant.io/integrations/miraie",
   "requirements": [
     "miraie-ac==1.1.1",
-    "asyncio>=3.4.3",
     "aiomqtt>=2.0.1"
   ],
   "ssdp": [],
