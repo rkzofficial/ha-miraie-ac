@@ -1,0 +1,61 @@
+set_off_timer:
+  name: Set off timer
+  description: >-
+    Schedule the AC to turn off after a duration. The timer fires on the AC
+    itself, so it survives loss of internet or Home Assistant connectivity.
+    The MirAIe broker rounds durations up to the next 60-second boundary.
+    Preserves any existing on-timer.
+  target:
+    entity:
+      integration: miraie
+      domain: climate
+  fields:
+    duration:
+      name: Duration
+      description: How long from now until the AC turns off.
+      required: true
+      example: "01:00:00"
+      selector:
+        duration:
+
+set_on_timer:
+  name: Set on timer
+  description: >-
+    Schedule the AC to turn on after a duration. Preserves any existing
+    off-timer.
+  target:
+    entity:
+      integration: miraie
+      domain: climate
+  fields:
+    duration:
+      name: Duration
+      description: How long from now until the AC turns on.
+      required: true
+      example: "00:30:00"
+      selector:
+        duration:
+
+cancel_off_timer:
+  name: Cancel off timer
+  description: Clear any scheduled turn-off. Leaves the on-timer untouched.
+  target:
+    entity:
+      integration: miraie
+      domain: climate
+
+cancel_on_timer:
+  name: Cancel on timer
+  description: Clear any scheduled turn-on. Leaves the off-timer untouched.
+  target:
+    entity:
+      integration: miraie
+      domain: climate
+
+clear_timers:
+  name: Clear timers
+  description: Clear both the on-timer and off-timer.
+  target:
+    entity:
+      integration: miraie
+      domain: climate

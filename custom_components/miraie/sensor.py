@@ -17,6 +17,57 @@ from .logger import LOGGER
 from .utils import get_last_sunday
 
 
+class MirAIeTimerSensor(SensorEntity):
+    """Timestamp sensor for an AC's scheduled on-timer or off-timer.
+
+    The state is the absolute UTC datetime when the AC will fire the
+    timer, or `None` (unavailable) if no timer is set.
+    """
+
+    _attr_device_class = SensorDeviceClass.TIMESTAMP
+    _attr_should_poll = False
+
+    def __init__(self, device: MirAIeDevice, kind: str):
+        if kind not in ("off", "on"):
+            raise ValueError(kind)
+        self.device = device
+        self.kind = kind
+        self._attr_unique_id = f"{device.id}_{kind}_timer_at"
+        self._attr_name = f"{device.friendly_name} {kind.capitalize()} timer"
+        self._attr_translation_key = f"{kind}_timer"
+
+    @property
+    def icon(self) -> str:
+        return "mdi:timer-off-outline" if self.kind == "off" else "mdi:timer-play-outline"
+
+    @property
+    def native_value(self) -> datetime | None:
+        epoch = self.device.status.off_timer_at if self.kind == "off" else self.device.status.on_timer_at
+        if epoch is None or epoch <= 0:
+            return None
+        return datetime.fromtimestamp(epoch, tz=timezone.utc)
+
+    @property
+    def available(self) -> bool:
+        return self.device.status.is_online
+
+    @property
+    def device_info(self) -> DeviceInfo:
+        return DeviceInfo(
+            identifiers={(DOMAIN, self.device.id)},
+            name=self.device.friendly_name,
+            manufacturer=self.device.details.brand,
+            model=self.device.details.model_number,
+            sw_version=self.device.details.firmware_version,
+        )
+
+    async def async_added_to_hass(self) -> None:
+        self.device.register_callback(self.async_write_ha_state)
+
+    async def async_will_remove_from_hass(self) -> None:
+        self.device.remove_callback(self.async_write_ha_state)
+
+
 CUTOFF_HOUR = 12
 
 class MirAIeEnergySensor(SensorEntity, ABC):
@@ -153,17 +204,23 @@ class MirAIeMonthlyEnergySensor(MirAIeEnergySensor):
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback):
     """Set up MirAIe energy sensors from a config entry."""
     hub: MirAIeHub = hass.data[DOMAIN][entry.entry_id]
-    sensors = []
+    energy_sensors: list[MirAIeEnergySensor] = []
+    timer_sensors: list[MirAIeTimerSensor] = []
     for device in hub.home.devices:
-        sensors += [
+        energy_sensors += [
             MirAIeDailyEnergySensor(hub, device),
             MirAIeWeeklyEnergySensor(hub, device),
             MirAIeMonthlyEnergySensor(hub, device),
         ]
-    async_add_entities(sensors, update_before_add=True)  # Register sensors
+        timer_sensors += [
+            MirAIeTimerSensor(device, "off"),
+            MirAIeTimerSensor(device, "on"),
+        ]
+    async_add_entities(energy_sensors, update_before_add=True)
+    async_add_entities(timer_sensors)
 
     async def update_sensors(now=None):
-        for sensor in sensors:
+        for sensor in energy_sensors:
             await sensor.async_update()
             sensor.async_write_ha_state()  # Ensure HA is notified of new data
 
