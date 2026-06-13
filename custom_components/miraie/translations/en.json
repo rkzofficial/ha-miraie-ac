@@ -6,14 +6,26 @@
         "error": {
             "cannot_connect": "Failed to connect",
             "invalid_auth": "Invalid authentication",
-            "unknown": "Unexpected error"
+            "unknown": "Unexpected error",
+            "invalid_install_date": "Date cannot be in the future or more than 8 months back (MirAIe keeps ~8 months)"
         },
         "step": {
             "user": {
+                "description": "We backfill energy statistics from this date. MirAIe keeps up to ~8 months of data, so earlier dates are not supported. Leave blank to default to the last 6 months.",
                 "data": {
                     "host": "Host",
                     "password": "Password",
-                    "username": "Username"
+                    "username": "Username",
+                    "install_date": "History start date (YYYY-MM-DD)"
+                }
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "install_date": "History start date (YYYY-MM-DD)"
                 }
             }
         }

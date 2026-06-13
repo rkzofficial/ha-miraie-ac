@@ -2,6 +2,7 @@
 
 DOMAIN = "miraie"
 PACKAGE_NAME = "custom_components.miraie"
+CONF_INSTALL_DATE = "install_date"
 
 # Possible swing state
 H0 = "H0"

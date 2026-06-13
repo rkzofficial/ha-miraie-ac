@@ -2,20 +2,32 @@
   "config": {
     "step": {
       "user": {
+        "description": "We backfill energy statistics from this date. MirAIe keeps up to ~8 months of data, so earlier dates are not supported. Leave blank to default to the last 6 months.",
         "data": {
           "host": "[%key:common::config_flow::data::host%]",
           "username": "[%key:common::config_flow::data::username%]",
-          "password": "[%key:common::config_flow::data::password%]"
+          "password": "[%key:common::config_flow::data::password%]",
+          "install_date": "History start date (YYYY-MM-DD)"
         }
       }
     },
     "error": {
       "cannot_connect": "[%key:common::config_flow::error::cannot_connect%]",
       "invalid_auth": "[%key:common::config_flow::error::invalid_auth%]",
-      "unknown": "[%key:common::config_flow::error::unknown%]"
+      "unknown": "[%key:common::config_flow::error::unknown%]",
+      "invalid_install_date": "Date cannot be in the future or more than 8 months back (MirAIe keeps ~8 months)"
     },
     "abort": {
       "already_configured": "[%key:common::config_flow::abort::already_configured_device%]"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "data": {
+          "install_date": "History start date (YYYY-MM-DD)"
+        }
+      }
     }
   }
 }

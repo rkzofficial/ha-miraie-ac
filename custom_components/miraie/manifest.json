@@ -4,7 +4,7 @@
   "config_flow": true,
   "documentation": "https://www.home-assistant.io/integrations/miraie",
   "requirements": [
-    "miraie-ac==1.1.1",
+    "miraie-ac>=1.1.2",
     "aiomqtt>=2.0.1"
   ],
   "ssdp": [],
@@ -17,5 +17,5 @@
     "@gutpull"
   ],
   "iot_class": "cloud_push",
-  "version": "1.1.6"
+  "version": "1.1.7"
 }
