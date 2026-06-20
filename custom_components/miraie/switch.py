@@ -76,6 +76,11 @@ class MirAIeDisplaySwitch(SwitchEntity):
         """Return True if display is on."""
         return self.device.status.display_mode == DisplayMode.ON
 
+    @property
+    def available(self) -> bool:
+        """Return True if entity is available."""
+        return self.device.status.is_online
+
     async def async_turn_off(self) -> None:
         await self.device.set_display_mode(DisplayMode.OFF)
 
