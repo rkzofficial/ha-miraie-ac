@@ -32,7 +32,8 @@
               "cv 90": "mdi:circle-slice-7",
               "cv 80": "mdi:circle-slice-6",
               "cv 70": "mdi:circle-slice-5",
-              "cv 55": "mdi:circle-slice-4",
+              "cv 60": "mdi:circle-slice-4",
+              "cv 50": "mdi:circle-slice-3",
               "cv 40": "mdi:circle-slice-3",
               "cv 0": "mdi:circle-outline"
             }
