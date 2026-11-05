@@ -26,10 +26,9 @@ from homeassistant.components.climate import (
     FAN_MEDIUM,
     FAN_HIGH,
     FAN_OFF,
-    PRECISION_WHOLE,
 )
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import UnitOfTemperature
+from homeassistant.const import PRECISION_WHOLE, UnitOfTemperature
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
